@@ -1,0 +1,2 @@
+rootProject.name='NewValley'
+include ':app'
