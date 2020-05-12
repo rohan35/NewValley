@@ -7,16 +7,16 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import com.raydevelopers.newvalley.R
-import com.raydevelopers.newvalley.viewmodels.MainViewModel
+import com.raydevelopers.newvalley.viewmodels.AllChannelsViewModel
 
-class MainFragment : Fragment() {
+class AllChannelsFragment : Fragment() {
 
     companion object {
         fun newInstance() =
-            MainFragment()
+            AllChannelsFragment()
     }
 
-    private lateinit var viewModel: MainViewModel
+    private lateinit var viewModel: AllChannelsViewModel
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
                               savedInstanceState: Bundle?): View {
@@ -25,7 +25,7 @@ class MainFragment : Fragment() {
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
-        viewModel = ViewModelProviders.of(this).get(MainViewModel::class.java)
+        viewModel = ViewModelProviders.of(this).get(AllChannelsViewModel::class.java)
         // TODO: Use the ViewModel
     }
 
