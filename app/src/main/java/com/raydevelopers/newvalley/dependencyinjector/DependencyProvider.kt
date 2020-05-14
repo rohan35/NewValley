@@ -3,6 +3,7 @@ package com.raydevelopers.newvalley.dependencyinjector
 import com.raydevelopers.newvalley.data.remote.CategoryRemoteDataSource
 import com.raydevelopers.newvalley.data.remote.ChannelRemoteDataSource
 import com.raydevelopers.newvalley.data.remote.NewEpisodeRemoteDataSource
+import com.raydevelopers.newvalley.data.respositories.AppRepository
 import com.raydevelopers.newvalley.data.transformer.CategoryTransFormer
 import com.raydevelopers.newvalley.data.transformer.ChannelTransformer
 import com.raydevelopers.newvalley.data.transformer.NewEpisodeTransFormer
@@ -38,7 +39,7 @@ object DependencyProvider {
      * @return object of [CategoryRemoteDataSource]
      */
     private fun getCategoryRemoteDataSource(): CategoryRemoteDataSource {
-        return CategoryRemoteDataSource()
+        return CategoryRemoteDataSource(getRepository())
     }
 
     /**
@@ -54,7 +55,7 @@ object DependencyProvider {
      * @return object of [ChannelRemoteDataSource]
      */
     private fun getChannelRemoteDataSource(): ChannelRemoteDataSource {
-        return ChannelRemoteDataSource()
+        return ChannelRemoteDataSource(getRepository())
     }
 
     /**
@@ -70,7 +71,12 @@ object DependencyProvider {
      * @return object of [NewEpisodeRemoteDataSource]
      */
     private fun getNewEpisodeRemoteDataSource(): NewEpisodeRemoteDataSource {
-        return NewEpisodeRemoteDataSource()
+        return NewEpisodeRemoteDataSource(getRepository())
+    }
+
+    private fun getRepository():AppRepository
+    {
+        return AppRepository()
     }
 
 }

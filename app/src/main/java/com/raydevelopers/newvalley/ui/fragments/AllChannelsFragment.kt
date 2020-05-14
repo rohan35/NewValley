@@ -37,7 +37,7 @@ class AllChannelsFragment : Fragment() {
     }
 
     /**
-     * getViewModel() provides the object of viewmodel with the help [DependencyProvider]
+     * getViewModel() provides the object of viewModel with the help [DependencyProvider]
      */
     private fun getViewModel(): AllChannelsViewModel {
         return ViewModelProvider(this, DependencyProvider.provideLoginViewModelFactory()).get(

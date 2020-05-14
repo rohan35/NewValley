@@ -14,9 +14,8 @@ class RetrofitService {
          * calling create service method of retroft to create the retrofit service
          * @param serviceClass - service class interface
          */
-        fun <T> createService(serviceClass: Class<T>): T {
-            return this.mRetrofit.create(serviceClass)
-        }
+
+        val networkService = mRetrofit.create(NetworkService::class.java)
     }
 
 

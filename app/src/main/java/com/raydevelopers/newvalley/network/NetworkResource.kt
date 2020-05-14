@@ -1,10 +1,9 @@
 package com.raydevelopers.newvalley.network
 
-class NetworkResource<Any>(
-    var statusCode: Int?,
-    var status: NetworkResource.Status?,
-    var data: Any?,
-    error: Throwable?
+class NetworkResource<out T>(
+    var status: Status?,
+    val data: T?,
+    val message: String?
 ) {
     companion object {
         /**
@@ -13,14 +12,12 @@ class NetworkResource<Any>(
          * @param statusCode - status code coming from the api
          * @return object of NetworkResource with success Response
          */
-        fun <Any> success(data: Any, statusCode: Int): NetworkResource<Any> {
-            return NetworkResource(
-                statusCode,
-                Status.SUCCESS,
-                data,
-                null as Throwable?
+        fun <T> success(data: T): NetworkResource<T> =
+            NetworkResource(
+                status = Status.SUCCESS,
+                data = data,
+                message = null
             )
-        }
 
         /**
          * Error function when api returns failure result or any exception occurr
@@ -29,9 +26,16 @@ class NetworkResource<Any>(
          * @param statusCode - status code coming from the api
          * @return object of NetworkResource with Failure Response
          */
-        fun <Any> error(data: Any, error: Throwable, statusCode: Int): NetworkResource<Any> {
-            return NetworkResource(statusCode, Status.ERROR, data, error)
-        }
+        fun <T> error(data: T?, message: String): NetworkResource<T> =
+            NetworkResource(
+                status = Status.ERROR,
+                data = data,
+                message = message
+            )
+
+
+        fun <T> loading(data: T?): NetworkResource<T> =
+            NetworkResource(status = Status.LOADING, data = data, message = null)
     }
 
     /**
@@ -39,6 +43,7 @@ class NetworkResource<Any>(
      */
     enum class Status {
         SUCCESS,
-        ERROR
+        ERROR,
+        LOADING
     }
 }

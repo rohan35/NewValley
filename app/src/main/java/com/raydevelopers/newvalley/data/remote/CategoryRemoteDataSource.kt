@@ -1,5 +1,8 @@
 package com.raydevelopers.newvalley.data.remote
 
-class CategoryRemoteDataSource() {
+import com.raydevelopers.newvalley.data.respositories.AppRepository
+import com.raydevelopers.newvalley.utility.CATEGORY_URL
 
+class CategoryRemoteDataSource(private var appRepository: AppRepository) {
+    suspend fun getCategories() = appRepository.getCall(CATEGORY_URL)
 }

@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout>
+    <data>
+        <variable
+            name="channelItem"
+            type="com.raydevelopers.newvalley.models.channel.ChannelX" />
+    </data>
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+
+    <ImageView
+        android:id="@+id/sectionThumbnail"
+        android:layout_width="@dimen/dp_50"
+        android:layout_height="@dimen/dp_50"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        android:layout_marginTop="@dimen/dp_20"
+        android:layout_marginStart="@dimen/dp_20"
+        android:src="@drawable/ic_launcher_background"
+        tools:layout_editor_absoluteX="11dp"
+        tools:layout_editor_absoluteY="11dp" />
+
+    <TextView
+        android:id="@+id/sectionTitle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        tools:text="MindValley Films"
+        android:layout_marginStart="@dimen/dp_14"
+        android:textSize="@dimen/sp_20"
+        android:layout_marginTop="@dimen/dp_26"
+        android:text="@{channelItem.title}"
+        android:textColor="@color/colorWhite"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintStart_toEndOf="@id/sectionThumbnail"
+        tools:layout_editor_absoluteX="153dp"
+        tools:layout_editor_absoluteY="17dp" />
+
+    <TextView
+        android:id="@+id/sectionEpisodeNumber"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintStart_toEndOf="@id/sectionThumbnail"
+        app:layout_constraintTop_toBottomOf="@id/sectionTitle"
+        android:layout_marginStart="@dimen/dp_14"
+        tools:text="12 Episodes"
+        android:text="@{channelItem.mediaCount}"
+        android:textColor="@color/color_95989D"
+        android:textSize="@dimen/sp_16"
+        tools:layout_editor_absoluteX="156dp"
+        tools:layout_editor_absoluteY="60dp" />
+</androidx.constraintlayout.widget.ConstraintLayout>
+</layout>
