@@ -1,9 +1,16 @@
 package com.raydevelopers.newvalley.dependencyinjector
 
+import com.raydevelopers.newvalley.MindValleyApplication
+import com.raydevelopers.newvalley.data.localsource.CategoryLocalDataSource
+import com.raydevelopers.newvalley.data.localsource.ChannelLocalDataSource
+import com.raydevelopers.newvalley.data.localsource.NewEpisodeLocalDataSource
 import com.raydevelopers.newvalley.data.remote.CategoryRemoteDataSource
 import com.raydevelopers.newvalley.data.remote.ChannelRemoteDataSource
 import com.raydevelopers.newvalley.data.remote.NewEpisodeRemoteDataSource
 import com.raydevelopers.newvalley.data.respositories.AppRepository
+import com.raydevelopers.newvalley.data.respositories.CategoryRepository
+import com.raydevelopers.newvalley.data.respositories.ChannelRepository
+import com.raydevelopers.newvalley.data.respositories.NewEpisodeRepository
 import com.raydevelopers.newvalley.data.transformer.AllChannelsMergeTransformer
 import com.raydevelopers.newvalley.data.transformer.CategoryTransFormer
 import com.raydevelopers.newvalley.data.transformer.ChannelTransformer
@@ -12,6 +19,10 @@ import com.raydevelopers.newvalley.data.usecase.AllChannelMergeUseCase
 import com.raydevelopers.newvalley.data.usecase.CategoryUseCase
 import com.raydevelopers.newvalley.data.usecase.ChannelUseCase
 import com.raydevelopers.newvalley.data.usecase.NewEpisodeUseCase
+import com.raydevelopers.newvalley.database.AppDatabase
+import com.raydevelopers.newvalley.database.CategoryDao
+import com.raydevelopers.newvalley.database.ChannelDao
+import com.raydevelopers.newvalley.database.NewEpisodeDao
 import com.raydevelopers.newvalley.factories.AllChannelsViewModelFactory
 import com.raydevelopers.newvalley.network.RetrofitService
 import com.raydevelopers.newvalley.network.ServiceHelper
@@ -36,7 +47,19 @@ object DependencyProvider {
      * @return object of [CategoryTransFormer]
      */
     private fun getCategoryUseCase(): CategoryUseCase {
-        return CategoryTransFormer(getCategoryRemoteDataSource())
+        return CategoryTransFormer(getCategoryRepository())
+    }
+
+    private fun getCategoryRepository(): CategoryRepository {
+        return CategoryRepository(getCategoryRemoteDataSource(), getCategoryLocalDataSource())
+    }
+
+    private fun getCategoryLocalDataSource(): CategoryLocalDataSource {
+        return CategoryLocalDataSource(getCategoryDao())
+    }
+
+    private fun getCategoryDao(): CategoryDao {
+        return AppDatabase.getDatabase(MindValleyApplication.applicationContext()).categoryDao()
     }
 
     /**
@@ -52,7 +75,20 @@ object DependencyProvider {
      * @return object of [ChannelTransformer]
      */
     private fun getChannelUseCase(): ChannelUseCase {
-        return ChannelTransformer(getChannelRemoteDataSource())
+        return ChannelTransformer(getChannelRepository())
+    }
+    private fun  getChannelRepository():ChannelRepository
+    {
+        return ChannelRepository(getChannelRemoteDataSource(), getChannelLocalDataSource())
+    }
+    private fun getChannelLocalDataSource():ChannelLocalDataSource
+    {
+        return ChannelLocalDataSource(getChannelDao())
+    }
+
+    private fun getChannelDao():ChannelDao
+    {
+        return AppDatabase.getDatabase(MindValleyApplication.applicationContext()).getChannelDao()
     }
 
     /**
@@ -68,9 +104,20 @@ object DependencyProvider {
      * @return object of [NewEpisodeTransFormer]
      */
     private fun getNewEpisodeUseCase(): NewEpisodeUseCase {
-        return NewEpisodeTransFormer(getNewEpisodeRemoteDataSource())
+        return NewEpisodeTransFormer(getNewEpisodeRepository())
+    }
+    private fun getNewEpisodeRepository():NewEpisodeRepository{
+        return NewEpisodeRepository(getNewEpisodeRemoteDataSource(), getNewEpisodeLocalDataSource())
+    }
+    private fun getNewEpisodeLocalDataSource():NewEpisodeLocalDataSource
+    {
+        return NewEpisodeLocalDataSource(getNewEpisodeDao())
     }
 
+    private fun getNewEpisodeDao():NewEpisodeDao
+    {
+        return AppDatabase.getDatabase(MindValleyApplication.applicationContext()).getNewEpisodeDao()
+    }
     /**
      * provide the instance of newEpisodeRemoteDataSource
      * @return object of [NewEpisodeRemoteDataSource]

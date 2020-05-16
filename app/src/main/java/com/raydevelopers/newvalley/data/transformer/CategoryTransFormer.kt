@@ -2,22 +2,32 @@ package com.raydevelopers.newvalley.data.transformer
 
 import androidx.lifecycle.liveData
 import com.google.gson.Gson
-import com.raydevelopers.newvalley.data.remote.CategoryRemoteDataSource
+import com.raydevelopers.newvalley.data.respositories.CategoryRepository
 import com.raydevelopers.newvalley.data.usecase.CategoryUseCase
 import com.raydevelopers.newvalley.models.category.Category
 import com.raydevelopers.newvalley.network.NetworkResource
 import com.raydevelopers.newvalley.network.NetworkUtils
 import kotlinx.coroutines.Dispatchers
 
-class CategoryTransFormer(private val remoteDataSource: CategoryRemoteDataSource) :
+class CategoryTransFormer(private val categoryRepository: CategoryRepository) :
     CategoryUseCase {
     override fun getCategories() = liveData(Dispatchers.IO) {
         try {
+            val remoteResponse = NetworkUtils.getModelFromJsonString(
+                (Gson().toJsonTree
+                    (categoryRepository.getCategories())).asJsonObject.toString(),
+                Category::class.java
+            )
+            if (remoteResponse != null)
+            {
+                categoryRepository.insertCategory(remoteResponse)
+            }
+
+
             emit(
                 NetworkResource.success(
-                    data =
-                    NetworkUtils.getModelFromJsonString((Gson().toJsonTree
-                        (remoteDataSource.getCategories())).asJsonObject.toString(),Category::class.java)
+                    data = categoryRepository.getCategoriesFromDatabase()
+
                 )
             )
         } catch (exception: Exception) {

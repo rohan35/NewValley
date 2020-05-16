@@ -13,6 +13,7 @@ import com.raydevelopers.newvalley.databinding.AllChannelsFragmentBinding
 import com.raydevelopers.newvalley.dependencyinjector.DependencyProvider
 import com.raydevelopers.newvalley.ui.adapters.AllChannelsRecyclerAdapter
 import com.raydevelopers.newvalley.viewmodels.AllChannelsViewModel
+import kotlinx.android.synthetic.main.all_channels_fragment.*
 
 class AllChannelsFragment : Fragment() {
     private var mBinding:AllChannelsFragmentBinding? = null
@@ -48,6 +49,11 @@ class AllChannelsFragment : Fragment() {
             }
 
         })
+        
+        mBinding?.pullToRefresh?.setOnRefreshListener {
+            getViewModel().getAllChannels()
+            pullToRefresh.isRefreshing = false
+        }
 
     }
 
