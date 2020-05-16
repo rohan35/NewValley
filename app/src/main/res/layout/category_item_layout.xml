@@ -9,15 +9,17 @@
     </data>
 
     <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_width="@dimen/dp_160"
+        android:layout_height="@dimen/dp_60"
+        android:layout_marginStart="@dimen/dp_20">
 
         <androidx.appcompat.widget.AppCompatButton
             android:id="@+id/category_ttile"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
             android:layout_marginBottom="@dimen/dp_16"
             android:background="@drawable/round_corner_btn_bg"
+
             android:text="@{categoryName.name}"
             android:textAlignment="center"
             android:textColor="@color/colorWhite"

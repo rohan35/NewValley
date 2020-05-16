@@ -36,6 +36,9 @@ class AllChannelsMergeTransformer : AllChannelMergeUseCase {
         }
         newEpisodeHeaderItem.endIndex = currentItemIndex
 
+        // add line seperator
+        headerList.add(ComponentViewType(ComponentViewType.SEPARATOR_VIEW_TYPE))
+
         channel?.data?.channels?.forEach { channelXList ->
             val id = channelXList?.id
             var headerItem = ChannelX(
@@ -67,6 +70,7 @@ class AllChannelsMergeTransformer : AllChannelMergeUseCase {
                 }
             }
             headerItem.endIndex = currentItemIndex
+            headerList.add(ComponentViewType(ComponentViewType.SEPARATOR_VIEW_TYPE))
         }
         // add categories
         var categoryHeaderItem = SingleHeaderItem(CATEGORIES_TITLE)

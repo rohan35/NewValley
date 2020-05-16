@@ -8,11 +8,14 @@ import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.raydevelopers.newvalley.BR
+import com.raydevelopers.newvalley.databinding.CategoryItemLayoutBinding
 import com.raydevelopers.newvalley.databinding.ChannelSectionHeaderLayoutBinding
+import com.raydevelopers.newvalley.databinding.ListItemSeperatorBinding
 import com.raydevelopers.newvalley.databinding.SingleTextHeaderLayoutBinding
 import com.raydevelopers.newvalley.models.ComponentViewType
 import com.raydevelopers.newvalley.models.HeaderAdapterInfo
 import com.raydevelopers.newvalley.models.SingleHeaderItem
+import com.raydevelopers.newvalley.models.category.CategoryX
 import com.raydevelopers.newvalley.models.channel.ChannelX
 import com.raydevelopers.newvalley.utility.CATEGORIES_TITLE
 
@@ -31,7 +34,15 @@ class AllChannelsRecyclerAdapter(var headerAdapterInfo: HeaderAdapterInfo) :
                     ),parent.context
                 )
             }
-
+            ComponentViewType.SEPARATOR_VIEW_TYPE ->
+            {
+                LineSeparatorViewHolder(
+                    ListItemSeperatorBinding.inflate(
+                        LayoutInflater.from(
+                        parent.context
+                    ),parent,false
+                ))
+            }
             else -> {
                 ChannelSectionHeaderViewHolder(
                     ChannelSectionHeaderLayoutBinding.inflate(
@@ -61,6 +72,9 @@ class AllChannelsRecyclerAdapter(var headerAdapterInfo: HeaderAdapterInfo) :
             }
             ComponentViewType.CHANNEL_SECTION_HEADER -> {
                 (holder as ChannelSectionHeaderViewHolder).bind(mHeaderList[position] as ChannelX)
+            }
+            ComponentViewType.SEPARATOR_VIEW_TYPE -> {
+                (holder as LineSeparatorViewHolder).bind()
             }
         }
     }
@@ -105,6 +119,14 @@ class AllChannelsRecyclerAdapter(var headerAdapterInfo: HeaderAdapterInfo) :
                 mBinding.sectionRv.sectionItemsRv.adapter =
                     SectionListRecyclerAdapter(componentList)
             }
+        }
+    }
+    inner class LineSeparatorViewHolder(private val mBinding:ListItemSeperatorBinding)
+        :RecyclerView.ViewHolder(mBinding.root)
+    {
+        fun bind()
+        {
+            mBinding.executePendingBindings()
         }
     }
 }

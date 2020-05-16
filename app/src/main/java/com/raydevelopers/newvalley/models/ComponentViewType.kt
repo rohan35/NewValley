@@ -13,7 +13,7 @@ open class ComponentViewType(var baseType:Int)
         const val CHANNEL_SERIES_VIEW_TYPE = 3;
         const val CHANNEL_SECTION_HEADER =4
         const val CATEGORY_VIEW_TYPE = 5
-        const val CATEGORY_HEADER_TYPE = 6
+        const val SEPARATOR_VIEW_TYPE = 6
         const val NEW_EPISODE_ITEM_VIEW_TYPE = 7
     }
 
