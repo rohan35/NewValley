@@ -10,7 +10,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="wrap_content">
 
 
     <ImageView
@@ -21,6 +21,7 @@
         app:layout_constraintTop_toTopOf="parent"
         android:layout_marginTop="@dimen/dp_20"
         android:layout_marginStart="@dimen/dp_20"
+        app:imageUrl="@{channelItem.iconAsset.thumbnailUrl}"
         android:src="@drawable/ic_launcher_background"
         tools:layout_editor_absoluteX="11dp"
         tools:layout_editor_absoluteY="11dp" />
@@ -33,8 +34,8 @@
         android:layout_marginStart="@dimen/dp_14"
         android:textSize="@dimen/sp_20"
         android:layout_marginTop="@dimen/dp_26"
-        android:text="@{channelItem.title}"
         android:textColor="@color/colorWhite"
+        android:text="@{channelItem.title}"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintStart_toEndOf="@id/sectionThumbnail"
         tools:layout_editor_absoluteX="153dp"
@@ -48,10 +49,16 @@
         app:layout_constraintTop_toBottomOf="@id/sectionTitle"
         android:layout_marginStart="@dimen/dp_14"
         tools:text="12 Episodes"
-        android:text="@{channelItem.mediaCount}"
+        android:text="@{String.format(channelItem.mediaCount.toString(),@string/episode_text)}"
         android:textColor="@color/color_95989D"
         android:textSize="@dimen/sp_16"
         tools:layout_editor_absoluteX="156dp"
         tools:layout_editor_absoluteY="60dp" />
+    <include
+        android:id="@+id/section_rv"
+        layout="@layout/section_items_recycler_view_layout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toBottomOf="@+id/sectionEpisodeNumber" />
 </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

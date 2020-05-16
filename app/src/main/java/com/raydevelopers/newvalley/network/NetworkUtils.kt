@@ -11,7 +11,7 @@ class NetworkUtils {
          * @param modelClass - class to be converted in
          * @return JsonObject
          */
-        fun <Any> getModelFromJsonString(response: String, modelClass: Class<Any>): Any? {
+        fun <Any> getModelFromJsonString(response: String? = "", modelClass: Class<Any>): Any? {
             return try {
                 val gson = GsonBuilder().create()
                 gson.fromJson(response, modelClass)

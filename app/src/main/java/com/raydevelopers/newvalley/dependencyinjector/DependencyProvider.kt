@@ -4,13 +4,17 @@ import com.raydevelopers.newvalley.data.remote.CategoryRemoteDataSource
 import com.raydevelopers.newvalley.data.remote.ChannelRemoteDataSource
 import com.raydevelopers.newvalley.data.remote.NewEpisodeRemoteDataSource
 import com.raydevelopers.newvalley.data.respositories.AppRepository
+import com.raydevelopers.newvalley.data.transformer.AllChannelsMergeTransformer
 import com.raydevelopers.newvalley.data.transformer.CategoryTransFormer
 import com.raydevelopers.newvalley.data.transformer.ChannelTransformer
 import com.raydevelopers.newvalley.data.transformer.NewEpisodeTransFormer
+import com.raydevelopers.newvalley.data.usecase.AllChannelMergeUseCase
 import com.raydevelopers.newvalley.data.usecase.CategoryUseCase
 import com.raydevelopers.newvalley.data.usecase.ChannelUseCase
 import com.raydevelopers.newvalley.data.usecase.NewEpisodeUseCase
 import com.raydevelopers.newvalley.factories.AllChannelsViewModelFactory
+import com.raydevelopers.newvalley.network.RetrofitService
+import com.raydevelopers.newvalley.network.ServiceHelper
 
 object DependencyProvider {
     /**
@@ -22,8 +26,9 @@ object DependencyProvider {
         val categoryUseCase = getCategoryUseCase()
         val channelUseCase = getChannelUseCase()
         val newEpisodeUseCase = getNewEpisodeUseCase()
+        val allChannelsMergeUseCase = getAllChannelsMergeUseCase()
         // pass the use cases to constructor of viewModel through viewModelFactory
-        return AllChannelsViewModelFactory(categoryUseCase, channelUseCase, newEpisodeUseCase)
+        return AllChannelsViewModelFactory(categoryUseCase, channelUseCase, newEpisodeUseCase,allChannelsMergeUseCase)
     }
 
     /**
@@ -74,9 +79,19 @@ object DependencyProvider {
         return NewEpisodeRemoteDataSource(getRepository())
     }
 
-    private fun getRepository():AppRepository
-    {
-        return AppRepository()
+    private fun getRepository(): AppRepository {
+        return AppRepository(getServiceHelper())
+    }
+
+    private fun getServiceHelper(): ServiceHelper {
+        return ServiceHelper(RetrofitService.networkService)
+    }
+    /**
+     * provide the instance of category Transformer which implements category use case
+     * @return object of [CategoryTransFormer]
+     */
+    private fun getAllChannelsMergeUseCase(): AllChannelMergeUseCase {
+        return AllChannelsMergeTransformer()
     }
 
 }

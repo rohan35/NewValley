@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout>
+
+    <data>
+
+        <variable
+            name="newEpisodeItem"
+            type="com.raydevelopers.newvalley.models.newepisode.Media" />
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        xmlns:tools="http://schemas.android.com/tools"
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent"
+        android:paddingStart="@dimen/dp_24"
+        android:paddingEnd="@dimen/dp_24">
+
+        <ImageView
+            android:id="@+id/item_image"
+            android:layout_width="@dimen/dp_152"
+            android:layout_height="@dimen/dp_228"
+            android:layout_marginTop="@dimen/dp_24"
+            android:src="@drawable/ic_launcher_background"
+            android:scaleType="fitXY"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:imageUrl="@{newEpisodeItem.coverAsset.url}"
+            tools:layout_editor_absoluteX="11dp"
+            tools:layout_editor_absoluteY="11dp" />
+
+        <TextView
+            android:id="@+id/item_title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:maxWidth="@dimen/dp_148"
+            android:layout_marginTop="@dimen/dp_10"
+            android:text="@{newEpisodeItem.title}"
+            android:textSize="@dimen/sp_17"
+            android:textColor="@color/colorWhite"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/item_image"
+            tools:layout_editor_absoluteX="38dp"
+            tools:layout_editor_absoluteY="140dp"
+            tools:text="The Art Of Conciouse Parenting" />
+
+        <TextView
+            android:id="@+id/item_channel"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/dp_10"
+            android:maxWidth="@dimen/dp_148"
+            android:text="@{newEpisodeItem.channel.title}"
+            android:textColor="@color/color_95989D"
+            android:textSize="@dimen/sp_13"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/item_title"
+            tools:layout_editor_absoluteX="38dp"
+            tools:layout_editor_absoluteY="140dp"
+            tools:text="Mind Valley Mentoring" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>

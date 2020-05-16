@@ -6,14 +6,17 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
+import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import com.raydevelopers.newvalley.R
 import com.raydevelopers.newvalley.databinding.AllChannelsFragmentBinding
 import com.raydevelopers.newvalley.dependencyinjector.DependencyProvider
+import com.raydevelopers.newvalley.ui.adapters.AllChannelsRecyclerAdapter
 import com.raydevelopers.newvalley.viewmodels.AllChannelsViewModel
 
 class AllChannelsFragment : Fragment() {
     private var mBinding:AllChannelsFragmentBinding? = null
+    private var mAdapter:AllChannelsRecyclerAdapter? = null
     companion object {
         fun newInstance() =
             AllChannelsFragment()
@@ -32,7 +35,19 @@ class AllChannelsFragment : Fragment() {
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
+        mBinding?.loader?.visibility = View.VISIBLE
         // make network request
+        getViewModel().getAllChannels()
+        getViewModel().mergedResponseLiveData.observe(viewLifecycleOwner, Observer {
+            adapterInfo->
+            if(adapterInfo != null)
+            {
+                mAdapter = AllChannelsRecyclerAdapter(adapterInfo)
+                mBinding?.recyclerView?.adapter = mAdapter
+                mBinding?.loader?.visibility = View.GONE
+            }
+
+        })
 
     }
 

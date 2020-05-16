@@ -15,7 +15,6 @@ class AppRepository(private val serviceHelper: ServiceHelper) {
     suspend fun getCall(
         subUrl: String
     ): Any {
-        val url = subUrl + BASE_URL
-       return serviceHelper.get(url)
+       return serviceHelper.get(subUrl)
     }
 }

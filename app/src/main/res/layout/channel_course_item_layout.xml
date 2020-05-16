@@ -3,25 +3,27 @@
     <data>
         <variable
             name="courseItem"
-            type="com.raydevelopers.newvalley.models.channel.LatestMedia" />
+            type="com.raydevelopers.newvalley.models.channel.ChannelMediaListItem" />
     </data>
 <androidx.constraintlayout.widget.ConstraintLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
+    android:layout_width="wrap_content"
     android:paddingStart="@dimen/dp_24"
     android:paddingEnd="@dimen/dp_24"
-    android:layout_height="match_parent">
+    android:layout_height="wrap_content">
 
     <ImageView
         android:id="@+id/item_image"
-        android:layout_width="wrap_content"
+        android:layout_width="@dimen/dp_152"
         android:layout_height="@dimen/dp_228"
         android:src="@drawable/ic_launcher_background"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         android:layout_marginTop="@dimen/dp_24"
+        android:scaleType="fitXY"
+        app:imageUrl="@{courseItem.coverAsset}"
         tools:layout_editor_absoluteX="11dp"
         tools:layout_editor_absoluteY="11dp" />
 
@@ -32,7 +34,9 @@
         android:layout_marginTop="@dimen/dp_10"
         tools:text="The Art Of Conciouse Parenting"
         android:textSize="@dimen/sp_17"
+        android:maxWidth="@dimen/dp_148"
         android:text="@{courseItem.title}"
+        android:textColor="@color/colorWhite"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/item_image"
         tools:layout_editor_absoluteX="38dp"

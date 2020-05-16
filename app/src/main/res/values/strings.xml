@@ -1,3 +1,4 @@
 <resources>
     <string name="app_name">NewValley</string>
+    <string name="episode_text">%1$s episodes</string>
 </resources>
