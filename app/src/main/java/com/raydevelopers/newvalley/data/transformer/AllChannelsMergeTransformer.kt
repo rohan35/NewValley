@@ -24,6 +24,7 @@ class AllChannelsMergeTransformer : AllChannelMergeUseCase {
         val headerList = ArrayList<ComponentViewType>()
         val sectionList = ArrayList<ComponentViewType>()
         var currentItemIndex =0;
+        headerList.add((SingleHeaderItem("Channels")))
         // add new episodes
         var newEpisodeHeaderItem = SingleHeaderItem("New Episode")
         headerList.add(newEpisodeHeaderItem)

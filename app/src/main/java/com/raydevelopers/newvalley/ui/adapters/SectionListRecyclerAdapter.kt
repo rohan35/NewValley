@@ -57,7 +57,9 @@ class SectionListRecyclerAdapter(private var mComponentArrayList: List<Component
     }
 
     override fun getItemCount(): Int {
-        return mComponentArrayList.size;
+        return mComponentArrayList.size
+        // you can return the size
+        //return mComponentArrayList.size;
     }
 
     override fun getItemViewType(position: Int): Int {

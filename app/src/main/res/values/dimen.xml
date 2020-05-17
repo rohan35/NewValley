@@ -22,4 +22,5 @@
     <dimen name="dp_172">172dp</dimen>
     <dimen name="dp_148">148dp</dimen>
     <dimen name="dp_281">281dp</dimen>
+    <dimen name="dp_1">1dp</dimen>
 </resources>

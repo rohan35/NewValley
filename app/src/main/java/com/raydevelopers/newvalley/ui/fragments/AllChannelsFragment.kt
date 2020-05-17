@@ -46,6 +46,7 @@ class AllChannelsFragment : Fragment() {
             {
                 mAdapter = AllChannelsRecyclerAdapter(adapterInfo)
                 mBinding?.recyclerView?.adapter = mAdapter
+                mBinding?.recyclerView?.setHasFixedSize(true)
                 mBinding?.loader?.visibility = View.GONE
             }
 

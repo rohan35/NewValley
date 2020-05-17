@@ -19,6 +19,7 @@
             android:layout_height="wrap_content"
             android:text="@{item.title}"
             android:textSize="@dimen/sp_20"
+            android:layout_marginTop="@dimen/dp_30"
             android:textColor="@color/color_95989D"
             android:layout_marginStart="@dimen/dp_20"
             app:layout_constraintTop_toTopOf="parent" />

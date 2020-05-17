@@ -49,7 +49,7 @@
         app:layout_constraintTop_toBottomOf="@id/sectionTitle"
         android:layout_marginStart="@dimen/dp_14"
         tools:text="12 Episodes"
-        android:text="@{String.format(channelItem.mediaCount.toString(),@string/episode_text)}"
+        android:text="@{@string/episode_text(channelItem.mediaCount.toString())}"
         android:textColor="@color/color_95989D"
         android:textSize="@dimen/sp_16"
         tools:layout_editor_absoluteX="156dp"
