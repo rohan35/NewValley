@@ -2,6 +2,7 @@ package com.raydevelopers.newvalley.data.transformer
 
 import androidx.lifecycle.liveData
 import com.google.gson.Gson
+import com.raydevelopers.newvalley.MindValleyApplication
 import com.raydevelopers.newvalley.data.respositories.NewEpisodeRepository
 import com.raydevelopers.newvalley.data.usecase.NewEpisodeUseCase
 import com.raydevelopers.newvalley.models.newepisode.NewEpisode
@@ -14,6 +15,15 @@ class NewEpisodeTransFormer(private val newEpisodeRepository: NewEpisodeReposito
     override fun getNewEpisodes() =
         liveData(Dispatchers.IO) {
             try {
+                if(!NetworkUtils.verifyAvailableNetwork(MindValleyApplication.applicationContext()))
+                {
+                    emit(
+                        NetworkResource.success(
+                            data = newEpisodeRepository.getNewEpisodeFromDatabase()
+                        )
+                    )
+                    return@liveData
+                }
                 val response =
                     NetworkUtils.getModelFromJsonString(
                         (Gson().toJsonTree

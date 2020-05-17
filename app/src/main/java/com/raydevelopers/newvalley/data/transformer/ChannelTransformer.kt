@@ -2,6 +2,7 @@ package com.raydevelopers.newvalley.data.transformer
 
 import androidx.lifecycle.liveData
 import com.google.gson.Gson
+import com.raydevelopers.newvalley.MindValleyApplication
 import com.raydevelopers.newvalley.data.remote.ChannelRemoteDataSource
 import com.raydevelopers.newvalley.data.respositories.ChannelRepository
 import com.raydevelopers.newvalley.data.usecase.ChannelUseCase
@@ -15,6 +16,15 @@ class ChannelTransformer(private val channelRepository: ChannelRepository) :
     override fun getChannels() =
         liveData(Dispatchers.IO) {
             try {
+                if(!NetworkUtils.verifyAvailableNetwork(MindValleyApplication.applicationContext()))
+                {
+                    emit(
+                        NetworkResource.success(
+                            data = channelRepository.getChannelFromDatabase()
+                        )
+                    )
+                    return@liveData
+                }
                 val response = NetworkUtils.getModelFromJsonString((Gson().toJsonTree
                     (channelRepository.getChannels())).asJsonObject.toString()
                     ,Channel::class.java)

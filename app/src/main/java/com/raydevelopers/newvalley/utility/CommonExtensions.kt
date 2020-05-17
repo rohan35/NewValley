@@ -1,5 +1,7 @@
 package com.raydevelopers.newvalley.utility
 
+import android.content.Context
+import android.net.ConnectivityManager
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.Observer
 
@@ -14,4 +16,5 @@ fun <T> LiveData<T>.observeOnce(observer: Observer<T>) {
             removeObserver(this)
         }
     })
+
 }

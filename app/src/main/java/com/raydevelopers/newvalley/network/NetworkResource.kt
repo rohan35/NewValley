@@ -9,7 +9,6 @@ class NetworkResource<out T>(
         /**
          * Success function when api returns ok result
          * @param data - type of data coming from the api
-         * @param statusCode - status code coming from the api
          * @return object of NetworkResource with success Response
          */
         fun <T> success(data: T): NetworkResource<T> =
@@ -22,8 +21,7 @@ class NetworkResource<out T>(
         /**
          * Error function when api returns failure result or any exception occurr
          * @param data - type of data coming from the api
-         * @param error - Error recieved from api or if any exception occur
-         * @param statusCode - status code coming from the api
+         * @param message - Error recieved from api or if any exception occur
          * @return object of NetworkResource with Failure Response
          */
         fun <T> error(data: T?, message: String): NetworkResource<T> =

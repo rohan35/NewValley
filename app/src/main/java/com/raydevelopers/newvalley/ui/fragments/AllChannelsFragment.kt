@@ -11,6 +11,7 @@ import androidx.lifecycle.ViewModelProvider
 import com.raydevelopers.newvalley.R
 import com.raydevelopers.newvalley.databinding.AllChannelsFragmentBinding
 import com.raydevelopers.newvalley.dependencyinjector.DependencyProvider
+import com.raydevelopers.newvalley.network.NetworkUtils
 import com.raydevelopers.newvalley.ui.adapters.AllChannelsRecyclerAdapter
 import com.raydevelopers.newvalley.viewmodels.AllChannelsViewModel
 import kotlinx.android.synthetic.main.all_channels_fragment.*

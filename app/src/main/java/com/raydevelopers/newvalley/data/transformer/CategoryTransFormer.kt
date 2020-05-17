@@ -2,6 +2,7 @@ package com.raydevelopers.newvalley.data.transformer
 
 import androidx.lifecycle.liveData
 import com.google.gson.Gson
+import com.raydevelopers.newvalley.MindValleyApplication
 import com.raydevelopers.newvalley.data.respositories.CategoryRepository
 import com.raydevelopers.newvalley.data.usecase.CategoryUseCase
 import com.raydevelopers.newvalley.models.category.Category
@@ -13,6 +14,15 @@ class CategoryTransFormer(private val categoryRepository: CategoryRepository) :
     CategoryUseCase {
     override fun getCategories() = liveData(Dispatchers.IO) {
         try {
+            if(!NetworkUtils.verifyAvailableNetwork(MindValleyApplication.applicationContext()))
+            {
+                emit(
+                    NetworkResource.success(
+                        data = categoryRepository.getCategoriesFromDatabase()
+                    )
+                )
+                return@liveData
+            }
             val remoteResponse = NetworkUtils.getModelFromJsonString(
                 (Gson().toJsonTree
                     (categoryRepository.getCategories())).asJsonObject.toString(),
@@ -27,7 +37,6 @@ class CategoryTransFormer(private val categoryRepository: CategoryRepository) :
             emit(
                 NetworkResource.success(
                     data = categoryRepository.getCategoriesFromDatabase()
-
                 )
             )
         } catch (exception: Exception) {
@@ -40,4 +49,5 @@ class CategoryTransFormer(private val categoryRepository: CategoryRepository) :
         }
 
     }
+
 }

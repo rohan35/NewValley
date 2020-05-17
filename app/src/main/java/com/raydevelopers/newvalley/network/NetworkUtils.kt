@@ -1,5 +1,8 @@
 package com.raydevelopers.newvalley.network
 
+import android.content.Context
+import android.net.ConnectivityManager
+import androidx.appcompat.app.AppCompatActivity
 import com.google.gson.GsonBuilder
 
 class NetworkUtils {
@@ -20,6 +23,11 @@ class NetworkUtils {
                 null
             }
 
+        }
+        fun verifyAvailableNetwork(context: Context):Boolean{
+            val connectivityManager=context.getSystemService(Context.CONNECTIVITY_SERVICE) as ConnectivityManager
+            val networkInfo=connectivityManager.activeNetworkInfo
+            return  networkInfo!=null && networkInfo.isConnected
         }
     }
 }
