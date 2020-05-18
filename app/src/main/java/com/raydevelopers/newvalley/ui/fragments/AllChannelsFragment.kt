@@ -8,11 +8,14 @@ import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
+import com.google.android.material.snackbar.Snackbar
+import com.raydevelopers.newvalley.MindValleyApplication
 import com.raydevelopers.newvalley.R
 import com.raydevelopers.newvalley.databinding.AllChannelsFragmentBinding
 import com.raydevelopers.newvalley.dependencyinjector.DependencyProvider
 import com.raydevelopers.newvalley.network.NetworkUtils
 import com.raydevelopers.newvalley.ui.adapters.AllChannelsRecyclerAdapter
+import com.raydevelopers.newvalley.utility.ERROR_OFFLINE
 import com.raydevelopers.newvalley.viewmodels.AllChannelsViewModel
 import kotlinx.android.synthetic.main.all_channels_fragment.*
 
@@ -38,8 +41,15 @@ class AllChannelsFragment : Fragment() {
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
         mBinding?.loader?.visibility = View.VISIBLE
+        // check internet
+        // check internet
+        if(!NetworkUtils.verifyAvailableNetwork(MindValleyApplication.applicationContext()))
+        {
+            getViewModel().errorLiveData.value = ERROR_OFFLINE
+        }
         // make network request
         getViewModel().getAllChannels()
+        observeError()
         getViewModel().mergedResponseLiveData.observe(viewLifecycleOwner, Observer {
             adapterInfo->
             if(adapterInfo != null)
@@ -53,10 +63,26 @@ class AllChannelsFragment : Fragment() {
         })
         
         mBinding?.pullToRefresh?.setOnRefreshListener {
+            if(!NetworkUtils.verifyAvailableNetwork(MindValleyApplication.applicationContext()))
+            {
+                getViewModel().errorLiveData.value = ERROR_OFFLINE
+            }
             getViewModel().getAllChannels()
             pullToRefresh.isRefreshing = false
         }
 
+    }
+
+    private fun observeError() {
+        getViewModel().errorLiveData.observe(viewLifecycleOwner, Observer { message ->
+            if (!message.isNullOrBlank()) {
+                Snackbar.make(
+                    mBinding!!.layoutRoot,
+                    message,
+                    Snackbar.LENGTH_SHORT
+                ).show()
+            }
+        })
     }
 
     /**
